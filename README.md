@@ -34,7 +34,11 @@ It allows users to visualize their dreams, reimagine themselves in different ide
 
 ### Installation
 
-1. Clone the repository:
    ```bash
    git clone https://github.com/mananjain123456/Beyond-Reality.git
    cd Beyond-Reality
+   npm install
+   GEMINI_API_KEY=your_api_key_here
+   npm run dev
+
+
