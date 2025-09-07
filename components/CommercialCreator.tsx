@@ -10,9 +10,10 @@ interface ImageUploaderProps {
     preview: string | null;
     onFileChange: (file: File) => void;
     title: string;
+    id: string;
 }
 
-const Uploader: React.FC<ImageUploaderProps> = ({ file, preview, onFileChange, title }) => {
+const Uploader: React.FC<ImageUploaderProps> = ({ file, preview, onFileChange, title, id }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,9 +26,11 @@ const Uploader: React.FC<ImageUploaderProps> = ({ file, preview, onFileChange, t
     return (
         <div>
             <label className="block text-sm font-medium text-light-text mb-2">{title}</label>
-            <div 
-                onClick={() => fileInputRef.current?.click()}
+            <label
+                htmlFor={id}
                 className="mt-1 flex justify-center h-40 px-4 py-2 border-2 border-dark-border border-dashed rounded-md cursor-pointer hover:border-brand-secondary transition"
+                role="button"
+                aria-label={preview ? `Change ${title}. Current file: ${file?.name}` : `Upload ${title}`}
             >
                 <div className="space-y-1 text-center flex flex-col justify-center items-center">
                     {preview ? (
@@ -39,8 +42,8 @@ const Uploader: React.FC<ImageUploaderProps> = ({ file, preview, onFileChange, t
                         <p className="pl-1 text-xs">{file ? file.name : 'Click to upload'}</p>
                     </div>
                 </div>
-            </div>
-            <input type="file" className="sr-only" ref={fileInputRef} onChange={handleFileChange} accept="image/*" />
+            </label>
+            <input id={id} type="file" className="sr-only" ref={fileInputRef} onChange={handleFileChange} accept="image/*" />
         </div>
     );
 };
@@ -137,8 +140,8 @@ const CommercialCreator: React.FC = () => {
                         <input id="targetAudience" type="text" className="w-full bg-dark-bg border border-dark-border rounded-md p-2.5 focus:ring-2 focus:ring-brand-secondary focus:border-brand-secondary transition" placeholder="e.g., Athletes, tech enthusiasts" value={targetAudience} onChange={(e) => setTargetAudience(e.target.value)} />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
-                        <Uploader file={productImage.file} preview={productImage.preview} onFileChange={handleProductImageChange} title="Product (Optional)" />
-                        <Uploader file={modelImage.file} preview={modelImage.preview} onFileChange={handleModelImageChange} title="Celebrity/Model (Optional)" />
+                        <Uploader id="commercial-uploader-product" file={productImage.file} preview={productImage.preview} onFileChange={handleProductImageChange} title="Product (Optional)" />
+                        <Uploader id="commercial-uploader-model" file={modelImage.file} preview={modelImage.preview} onFileChange={handleModelImageChange} title="Celebrity/Model (Optional)" />
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-light-text mb-2">Commercial Style</label>

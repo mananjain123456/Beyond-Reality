@@ -8,9 +8,10 @@ interface ImageUploaderProps {
     preview: string | null;
     onFileChange: (file: File) => void;
     title: string;
+    id: string;
 }
 
-const Uploader: React.FC<ImageUploaderProps> = ({ file, preview, onFileChange, title }) => {
+const Uploader: React.FC<ImageUploaderProps> = ({ file, preview, onFileChange, title, id }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,9 +24,11 @@ const Uploader: React.FC<ImageUploaderProps> = ({ file, preview, onFileChange, t
     return (
         <div>
             <label className="block text-sm font-medium text-light-text mb-2">{title}</label>
-            <div 
-                onClick={() => fileInputRef.current?.click()}
+            <label 
+                htmlFor={id}
                 className="mt-1 flex justify-center h-48 px-6 pt-5 pb-6 border-2 border-dark-border border-dashed rounded-md cursor-pointer hover:border-brand-secondary transition"
+                role="button"
+                aria-label={preview ? `Change ${title}. Current file: ${file?.name}` : `Upload ${title}`}
             >
                 <div className="space-y-1 text-center flex flex-col justify-center items-center">
                     {preview ? (
@@ -37,8 +40,8 @@ const Uploader: React.FC<ImageUploaderProps> = ({ file, preview, onFileChange, t
                         <p className="pl-1">{file ? file.name : 'Click to upload'}</p>
                     </div>
                 </div>
-            </div>
-            <input type="file" className="sr-only" ref={fileInputRef} onChange={handleFileChange} accept="image/*" />
+            </label>
+            <input id={id} type="file" className="sr-only" ref={fileInputRef} onChange={handleFileChange} accept="image/*" />
         </div>
     );
 };
@@ -118,8 +121,8 @@ const ImageFusion: React.FC = () => {
                 </div>
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <Uploader file={image1.file} preview={image1.preview} onFileChange={handleFile1Change} title="Image 1 (e.g., a person)" />
-                        <Uploader file={image2.file} preview={image2.preview} onFileChange={handleFile2Change} title="Image 2 (e.g., clothing)" />
+                        <Uploader id="fusion-uploader-1" file={image1.file} preview={image1.preview} onFileChange={handleFile1Change} title="Image 1 (e.g., a person)" />
+                        <Uploader id="fusion-uploader-2" file={image2.file} preview={image2.preview} onFileChange={handleFile2Change} title="Image 2 (e.g., clothing)" />
                     </div>
 
                     <div>

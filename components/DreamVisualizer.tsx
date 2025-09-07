@@ -128,16 +128,22 @@ const DreamVisualizer: React.FC = () => {
 
                     <div>
                         <label className="block text-sm font-medium text-light-text mb-2">Upload Image (Optional)</label>
-                         <div 
-                            onClick={() => !filePreview && fileInputRef.current?.click()}
-                            className="mt-1 flex justify-center items-center h-28 px-6 pt-5 pb-6 border-2 border-dark-border border-dashed rounded-md transition relative"
+                         <label
+                            htmlFor="file-upload-dream"
+                            className="mt-1 flex justify-center items-center h-28 px-6 pt-5 pb-6 border-2 border-dark-border border-dashed rounded-md transition relative cursor-pointer hover:border-brand-secondary"
+                            role="button"
+                            aria-label={filePreview ? "Change uploaded image" : "Upload an image"}
                         >
                             {filePreview ? (
                                 <>
                                     <img src={filePreview} alt="Preview" className="max-h-full w-auto object-contain rounded" />
                                     <button 
                                         type="button"
-                                        onClick={handleClearFile}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            handleClearFile();
+                                        }}
                                         className="absolute top-1 right-1 bg-dark-bg/70 text-white p-1 rounded-full hover:bg-red-500 transition-colors"
                                         aria-label="Remove image"
                                     >
@@ -145,13 +151,13 @@ const DreamVisualizer: React.FC = () => {
                                     </button>
                                 </>
                             ) : (
-                                <div className="space-y-1 text-center cursor-pointer hover:text-brand-secondary">
+                                <div className="space-y-1 text-center">
                                     <UploadIcon className="mx-auto h-10 w-10 text-medium-text" />
                                     <p className="text-xs text-medium-text">Click to upload an image</p>
                                 </div>
                             )}
-                        </div>
-                        <input id="file-upload" name="file-upload" type="file" className="sr-only" ref={fileInputRef} onChange={handleFileChange} accept="image/*" />
+                        </label>
+                        <input id="file-upload-dream" name="file-upload" type="file" className="sr-only" ref={fileInputRef} onChange={handleFileChange} accept="image/*" />
                     </div>
 
                     <div>

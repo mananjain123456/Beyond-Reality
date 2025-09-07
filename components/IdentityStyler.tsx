@@ -82,9 +82,11 @@ const IdentityStyler: React.FC = () => {
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
                         <label className="block text-sm font-medium text-light-text mb-2">Upload Your Photo</label>
-                        <div 
-                            onClick={() => fileInputRef.current?.click()}
+                        <label 
+                            htmlFor="file-upload-identity"
                             className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dark-border border-dashed rounded-md cursor-pointer hover:border-brand-secondary transition"
+                            role="button"
+                            aria-label={filePreview ? `Change photo. Current file: ${uploadedFile?.name}` : "Upload your photo"}
                         >
                             <div className="space-y-1 text-center">
                                 {filePreview ? (
@@ -96,8 +98,8 @@ const IdentityStyler: React.FC = () => {
                                     <p className="pl-1">{uploadedFile ? uploadedFile.name : 'Click to upload an image'}</p>
                                 </div>
                             </div>
-                        </div>
-                        <input id="file-upload" name="file-upload" type="file" className="sr-only" ref={fileInputRef} onChange={handleFileChange} accept="image/*" />
+                        </label>
+                        <input id="file-upload-identity" name="file-upload" type="file" className="sr-only" ref={fileInputRef} onChange={handleFileChange} accept="image/*" />
                     </div>
 
                     <div>
