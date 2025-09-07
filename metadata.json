@@ -1,7 +1,5 @@
 {
   "name": "Copy of Copy of Beyond Reality – AI Story & Identity Visualizer",
   "description": "An AI-powered web application that transforms your stories, dreams, and identity into stunning visuals. Generate images from text, style your photos into new personas, and even create scenes with your favorite icons.",
-  "requestFramePermissions": [
-    "camera"
-  ]
+  "requestFramePermissions": []
 }
